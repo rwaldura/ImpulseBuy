@@ -12,7 +12,8 @@ public enum ImpulseItem {
     MACBOOK_HELIUM(102, "MacBook Helium", 49999),
     NEXUS_23(103, "Nexus 23", 22222),
     PING_PONG_BALLS(104, "Pack of 6 ping-pong balls", 1323),
-    NOOGLER_CAP(105, "Noogler cap", 1200);
+    NOOGLER_CAP(105, "Noogler cap", 1200),
+    NULL_OBJECT(106, "Null object", 0);
 
     public final Integer id;
     public final String description;

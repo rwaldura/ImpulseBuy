@@ -62,8 +62,7 @@ public class SelectItemActivity extends ActionBarActivity {
 
                 WalletFragmentInitParams.Builder startParamsBuilder = WalletFragmentInitParams.newBuilder()
                         .setMaskedWalletRequest(maskedWalletRequest)
-                        .setMaskedWalletRequestCode(WalletSupport.REQUEST_CODE_MASKED_WALLET)
-                        .setAccountName(WalletSupport.ACCOUNT_NAME);
+                        .setMaskedWalletRequestCode(WalletSupport.REQUEST_CODE_MASKED_WALLET);
                 WalletFragmentInitParams params = startParamsBuilder.build();
 
                 if (mWalletFragment.getState() == WalletFragmentState.UNINITIALIZED)

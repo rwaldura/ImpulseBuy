@@ -22,5 +22,5 @@
     <string name="loading">Loading...</string>
     <string name="title_activity_completed_order">Order is Complete, yo!</string>
     <string name="roll_dice">Roll the Dice</string>
-    <string name="order_receipt_text"><![CDATA[Congratulations! You are now the proud owner of a <b>%s</b>!\n\nIt will be shipped to:\n%s\n\nReceipt sent to %s\n\nOrder confirmation number: %s]]></string>
+    <string name="order_receipt_text">Congratulations! You are now the proud owner of a %1$s!\n\nIt will be shipped to:\n%2$s\n\nReceipt sent to %3$s\n\nOrder confirmation number: %4$s</string>
 </resources>

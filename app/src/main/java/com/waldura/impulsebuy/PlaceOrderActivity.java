@@ -41,13 +41,12 @@ public class PlaceOrderActivity extends ActionBarActivity {
 
         WalletFragmentInitParams.Builder startParamsBuilder = WalletFragmentInitParams.newBuilder()
                 .setMaskedWallet(maskedWallet)
-                .setMaskedWalletRequestCode(WalletSupport.REQUEST_CODE_CHANGE_MASKED_WALLET)
-                .setAccountName(WalletSupport.ACCOUNT_NAME);
+                .setMaskedWalletRequestCode(WalletSupport.REQUEST_CODE_CHANGE_MASKED_WALLET);
         WalletFragmentInitParams params = startParamsBuilder.build();
 
         populateOrderDetails();
 
-        // locate the fragment that was defined in XML
+        // locate and load the fragment that was defined in XML
         mWalletFragment = (WalletFragment) getFragmentManager().findFragmentById(R.id.wallet_confirmation_fragment);
         mWalletFragment.initialize(params);
         Log.i(ImpulseStore.TAG, "initialized wallet fragment with params " + params);
@@ -74,7 +73,7 @@ public class PlaceOrderActivity extends ActionBarActivity {
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         Log.w(ImpulseStore.TAG, "onActivityResult request=" + requestCode + " result=" + resultCode);
 
-        FullWalletConfirmationButtonFragment fragment = (FullWalletConfirmationButtonFragment) getFragmentManager().findFragmentById(R.id.full_wallet_confirmation_button_fragment);
+        FullWalletConfirmationButtonFragment fragment = (FullWalletConfirmationButtonFragment) getSupportFragmentManager().findFragmentById(R.id.full_wallet_confirmation_button_fragment);
 
         // we have to explicitly forward the item(s) to buy
         data.putExtra(ImpulseStore.EXTRA_ITEM, mItem);

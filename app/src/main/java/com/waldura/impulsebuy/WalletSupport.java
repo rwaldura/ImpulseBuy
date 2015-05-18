@@ -19,7 +19,6 @@ import com.google.android.gms.wallet.WalletConstants;
 public class WalletSupport {
 
     public static final String MERCHANT_NAME = "Awesome Bike Store";
-    public static final String ACCOUNT_NAME = "rwaldura@google.com";
 
     public static final String CURRENCY_CODE_USD = "USD";
 
@@ -39,7 +38,7 @@ public class WalletSupport {
 
         MaskedWalletRequest req = MaskedWalletRequest.newBuilder()
             .setMerchantName(MERCHANT_NAME)
-            .setPhoneNumberRequired(true)
+            .setPhoneNumberRequired(false)
             .setShippingAddressRequired(true)
             .setCurrencyCode(CURRENCY_CODE_USD)
             .setShouldRetrieveWalletObjects(true)

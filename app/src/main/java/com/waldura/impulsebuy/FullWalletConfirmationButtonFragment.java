@@ -18,7 +18,6 @@ package com.waldura.impulsebuy;
 
 import android.app.Activity;
 import android.app.Dialog;
-import android.app.Fragment;
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.DialogInterface.OnCancelListener;
@@ -55,7 +54,9 @@ import java.lang.ref.WeakReference;
  * creation and sending of requests and handling responses. Applications may use this fragment as
  * a drop in replacement of a confirmation button in case the user has chosen to use Google Wallet.
  */
-public class FullWalletConfirmationButtonFragment extends Fragment implements ConnectionCallbacks, OnConnectionFailedListener, OnClickListener {
+public class FullWalletConfirmationButtonFragment
+        extends android.support.v4.app.Fragment
+        implements ConnectionCallbacks, OnConnectionFailedListener, OnClickListener {
 
     /**
      * Request code used when attempting to resolve issues with connecting to Google Play Services.
@@ -107,20 +108,16 @@ public class FullWalletConfirmationButtonFragment extends Fragment implements Co
         if (savedInstanceState != null) {
             mRetryCounter = savedInstanceState.getInt(KEY_RETRY_COUNTER);
             mRetryLoadFullWalletCount = savedInstanceState.getInt(KEY_RETRY_FULL_WALLET_COUNTER);
-            mHandleFullWalletWhenReady =
-                    savedInstanceState.getBoolean(KEY_HANDLE_FULL_WALLET_WHEN_READY);
+            mHandleFullWalletWhenReady = savedInstanceState.getBoolean(KEY_HANDLE_FULL_WALLET_WHEN_READY);
         }
         mActivityLaunchIntent = getActivity().getIntent();
         mItem = (ImpulseItem) mActivityLaunchIntent.getSerializableExtra(ImpulseStore.EXTRA_ITEM);
         mMaskedWallet = mActivityLaunchIntent.getParcelableExtra(WalletConstants.EXTRA_MASKED_WALLET);
 
-        String accountName = WalletSupport.ACCOUNT_NAME;
-
         // Set up an API client;
         mGoogleApiClient = new GoogleApiClient.Builder(getActivity())
                 .addConnectionCallbacks(this)
                 .addOnConnectionFailedListener(this)
-                .setAccountName(accountName)
                 .addApi(Wallet.API, new Wallet.WalletOptions.Builder()
                         .setEnvironment(WalletSupport.ENVIRONMENT)
                         .setTheme(WalletConstants.THEME_HOLO_LIGHT)

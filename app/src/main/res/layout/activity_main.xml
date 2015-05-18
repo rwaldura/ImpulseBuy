@@ -39,13 +39,14 @@
         android:src="@drawable/dice6" />
 
     <fragment
-        xmlns:wallet="http://schemas.android.com/apk/res-auto"
         android:id="@+id/wallet_buy_fragment"
         android:name="com.google.android.gms.wallet.fragment.WalletFragment"
         android:layout_width="@dimen/buy_button_width"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/padding_xlarge"
+        xmlns:wallet="http://schemas.android.com/apk/res-auto"
         wallet:environment="sandbox"
-        wallet:fragmentMode="buyButton"/>
+        wallet:fragmentMode="buyButton"
+        wallet:fragmentStyle="@style/ImpulseWalletFragmentStyle" />
 
 </LinearLayout>

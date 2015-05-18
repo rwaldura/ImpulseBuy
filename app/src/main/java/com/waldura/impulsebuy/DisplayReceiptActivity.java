@@ -11,6 +11,7 @@ import android.widget.TextView;
 
 import com.google.android.gms.identity.intents.model.UserAddress;
 import com.google.android.gms.wallet.FullWallet;
+import com.google.android.gms.wallet.InstrumentInfo;
 import com.google.android.gms.wallet.NotifyTransactionStatusRequest;
 import com.google.android.gms.wallet.WalletConstants;
 
@@ -42,9 +43,15 @@ public class DisplayReceiptActivity extends ActionBarActivity {
                     wallet.getEmail(),
                     wallet.getGoogleTransactionId()));
 
-            text.append("\nPayment descriptions:\n");
+            text.append("\nPayment descriptions");
             for (String descr : wallet.getPaymentDescriptions()) {
-                text.append("* ").append(descr);
+                text.append("\n* ").append(descr);
+            }
+
+            text.append("\nInstrument infos (secret!)");
+            for (InstrumentInfo ii : wallet.getInstrumentInfos()) {
+                text.append("\n* type: ").append(ii.getInstrumentType())
+                        .append(" details: ").append(ii.getInstrumentDetails());
             }
 
             textLabel.setText(text);
