@@ -19,6 +19,7 @@ android {
     }
 
     packagingOptions {
+        // conflicting resources coming from the AAR file for gCore
         exclude 'AndroidManifest.xml'
         exclude 'res/raw/gtm_analytics'
         exclude 'res/drawable/common_signin_btn_icon_dark.xml'

@@ -21,7 +21,7 @@
     <style name="ImpulseWalletFragmentStyle">
         <item name="buyButtonHeight">64dp</item>
         <item name="buyButtonWidth">match_parent</item>
-        <item name="buyButtonText">buy_now</item>
+        <item name="buyButtonText">book_now</item>
         <item name="buyButtonAppearance">grayscale</item>
 
         <item name="maskedWalletDetailsTextAppearance">@style/ImpulseWalletFragmentDetailsTextAppearance</item>
