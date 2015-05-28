@@ -44,6 +44,7 @@ import com.google.android.gms.wallet.MaskedWallet;
 import com.google.android.gms.wallet.NotifyTransactionStatusRequest;
 import com.google.android.gms.wallet.Wallet;
 import com.google.android.gms.wallet.WalletConstants;
+import com.stripe.model.Token;
 
 import java.lang.ref.WeakReference;
 
@@ -294,14 +295,22 @@ public class FullWalletConfirmationButtonFragment
 
         int totalPrice = ImpulseStore.computeTotalPrice(item);
 
-        // @todo send payment info to payment processor for processing
-        // ...
+        processPaymentWithStripe(totalPrice, wallet);
 
         int paymentProcessingStatus = pickTransactionStatus();
 
         Log.i(ImpulseStore.TAG, "processed customer payment: " + ImpulseStore.toUSD(totalPrice) + " using wallet " + walletToString(wallet));
 
         fetchTransactionStatus(item, wallet, paymentProcessingStatus);
+    }
+
+    private void processPaymentWithStripe(int totalPrice, FullWallet wallet) {
+        // process payment using Stripe API
+        Token token = Token.GSON.fromJson(
+                wallet.getPaymentMethodToken().getToken(), com.stripe.model.Token.class);
+        token.getId();
+
+        // use the token somehow
     }
 
     private int pickTransactionStatus() {

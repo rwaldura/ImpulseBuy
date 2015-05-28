@@ -9,7 +9,10 @@ import com.google.android.gms.wallet.FullWalletRequest;
 import com.google.android.gms.wallet.LineItem;
 import com.google.android.gms.wallet.MaskedWalletRequest;
 import com.google.android.gms.wallet.NotifyTransactionStatusRequest;
+import com.google.android.gms.wallet.PaymentMethodTokenizationParameters;
+import com.google.android.gms.wallet.PaymentMethodTokenizationType;
 import com.google.android.gms.wallet.WalletConstants;
+import com.stripe.Stripe;
 
 /**
  * The responsibility for this class is to interface with the Google Wallet object model.
@@ -18,15 +21,17 @@ import com.google.android.gms.wallet.WalletConstants;
  */
 public class WalletSupport {
 
-    public static final String MERCHANT_NAME = "Awesome Bike Store";
+    // whatever value we want
+    public static final int REQUEST_CODE_MASKED_WALLET = 1111;
+    public static final int REQUEST_CODE_CHANGE_MASKED_WALLET = 1112;
 
-    public static final String CURRENCY_CODE_USD = "USD";
+    private static final String MERCHANT_NAME = "Awesome Bike Store";
 
-    // complete and utter magic, got it from the sample app
-    public static final int REQUEST_CODE_MASKED_WALLET = 1001;
-    public static final int REQUEST_CODE_CHANGE_MASKED_WALLET = 1002;
+    private static final String CURRENCY_CODE_USD = "USD";
 
     public static final int ENVIRONMENT = WalletConstants.ENVIRONMENT_SANDBOX;
+
+    private static final String STRIPE_PUBLIC_KEY = "pk_1234567890";
 
     /**
      *
@@ -41,12 +46,19 @@ public class WalletSupport {
             .setPhoneNumberRequired(false)
             .setShippingAddressRequired(true)
             .setCurrencyCode(CURRENCY_CODE_USD)
-            .setShouldRetrieveWalletObjects(true)
             .setCart(cart)
             .setEstimatedTotalPrice(cart.getTotalPrice())
-            .build();
+            // Stripe stuff
+            .setPaymentMethodTokenizationParameters(
+                    PaymentMethodTokenizationParameters.newBuilder()
+                            .setPaymentMethodTokenizationType(PaymentMethodTokenizationType.PAYMENT_GATEWAY)
+                            .addParameter("gateway", "stripe")
+                            .addParameter("stripe:publishableKey", STRIPE_PUBLIC_KEY)
+                            .addParameter("stripe:version", Stripe.VERSION)
+                            .build())
+        .build();
 
-        Log.i(ImpulseStore.TAG, "built wallet request " + req);
+        Log.i(ImpulseStore.TAG, "built wallet request " + req + " with Stripe pub key: " + STRIPE_PUBLIC_KEY);
 
         return req;
     }
