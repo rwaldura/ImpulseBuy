@@ -295,22 +295,19 @@ public class FullWalletConfirmationButtonFragment
 
         int totalPrice = ImpulseStore.computeTotalPrice(item);
 
-        processPaymentWithStripe(totalPrice, wallet);
+        // get the token
+        String jsonToken = wallet.getPaymentMethodToken().getToken();
+        Token token = Token.GSON.fromJson(jsonToken, Token.class);
+
+        // token must be sent to server for payment processing
+        Log.i(ImpulseStore.TAG, "sending token to server for processing: " + jsonToken);
 
         int paymentProcessingStatus = pickTransactionStatus();
 
-        Log.i(ImpulseStore.TAG, "processed customer payment: " + ImpulseStore.toUSD(totalPrice) + " using wallet " + walletToString(wallet));
+        Log.i(ImpulseStore.TAG, "processed customer payment: " + ImpulseStore.toUSD(totalPrice)
+            + " using wallet " + walletToString(wallet, token));
 
         fetchTransactionStatus(item, wallet, paymentProcessingStatus);
-    }
-
-    private void processPaymentWithStripe(int totalPrice, FullWallet wallet) {
-        // process payment using Stripe API
-        Token token = Token.GSON.fromJson(
-                wallet.getPaymentMethodToken().getToken(), com.stripe.model.Token.class);
-        token.getId();
-
-        // use the token somehow
     }
 
     private int pickTransactionStatus() {
@@ -322,10 +319,24 @@ public class FullWalletConfirmationButtonFragment
 
     private String walletToString(FullWallet wallet) {
         StringBuilder sb = new StringBuilder();
-        sb.append("pan=").append(wallet.getProxyCard().getPan());
-        sb.append(" cvv=").append(wallet.getProxyCard().getCvn());
-        sb.append(" exp=").append(wallet.getProxyCard().getExpirationMonth()).append('/').append(wallet.getProxyCard().getExpirationYear());
+        if (wallet.getProxyCard() != null) {
+            sb.append("pan=").append(wallet.getProxyCard().getPan());
+            sb.append(" cvv=").append(wallet.getProxyCard().getCvn());
+            sb.append(" exp=").append(wallet.getProxyCard().getExpirationMonth()).append('/').append(wallet.getProxyCard().getExpirationYear());
+        } else if (wallet.getPaymentMethodToken() != null) {
+            sb.append(" token=").append(wallet.getPaymentMethodToken().getToken());
+        }
         sb.append(" address=").append(wallet.getBillingAddress());
+        return sb.toString();
+    }
+
+    private String walletToString(FullWallet wallet, Token token) {
+        StringBuilder sb = new StringBuilder(walletToString(wallet));
+        if (token != null) {
+            sb.append(" t_pan=*").append(token.getCard().getLast4());
+            sb.append(" t_cvv=").append(token.getCard().getCvcCheck());
+            sb.append(" t_exp=").append(token.getCard().getExpMonth()).append('/').append(token.getCard().getExpYear());
+        }
         return sb.toString();
     }
 

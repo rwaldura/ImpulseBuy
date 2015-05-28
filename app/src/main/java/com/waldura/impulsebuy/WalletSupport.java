@@ -31,7 +31,7 @@ public class WalletSupport {
 
     public static final int ENVIRONMENT = WalletConstants.ENVIRONMENT_SANDBOX;
 
-    private static final String STRIPE_PUBLIC_KEY = "pk_1234567890";
+    private static final String STRIPE_PUBLIC_KEY = "pk_test_6pRNASCoBOKtIshFeQd4XMUh";
 
     /**
      *
