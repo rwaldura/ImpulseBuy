@@ -245,12 +245,15 @@ public class FullWalletConfirmationButtonFragment
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        Log.i(ImpulseStore.TAG, "FWConfBtn.onActRes req=" + requestCode + " res=" + resultCode);
+
         mProgressDialog.hide();
 
         // retrieve the error code, if available
         int errorCode = -1;
         if (data != null) {
             errorCode = data.getIntExtra(WalletConstants.EXTRA_ERROR_CODE, -1);
+            Log.e(ImpulseStore.TAG, "FWConfBtn.onActRes error=" + errorCode);
         }
 
         switch (requestCode) {
@@ -276,7 +279,7 @@ public class FullWalletConfirmationButtonFragment
                         }
                         break;
                     case Activity.RESULT_CANCELED:
-                        // nothing to do here
+                        Log.w(ImpulseStore.TAG, "FWConfBtn cancelled");
                         break;
                     default:
                         handleError(errorCode);
@@ -372,6 +375,8 @@ public class FullWalletConfirmationButtonFragment
     }
 
     private void handleError(int errorCode) {
+        Log.e(ImpulseStore.TAG, "handling error code=" + errorCode);
+
         if (checkAndRetryFullWallet(errorCode)) {
             // handled by retrying
             return;

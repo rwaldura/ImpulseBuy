@@ -71,7 +71,7 @@ public class PlaceOrderActivity extends ActionBarActivity {
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        Log.w(ImpulseStore.TAG, "onActivityResult request=" + requestCode + " result=" + resultCode);
+        Log.w(ImpulseStore.TAG, "PlaceOrder.onActivityResult request=" + requestCode + " result=" + resultCode);
 
         FullWalletConfirmationButtonFragment fragment = (FullWalletConfirmationButtonFragment) getSupportFragmentManager().findFragmentById(R.id.full_wallet_confirmation_button_fragment);
 
@@ -98,6 +98,7 @@ public class PlaceOrderActivity extends ActionBarActivity {
 //            case PromoAddressLookupFragment.REQUEST_CODE_RESOLVE_ERR:
 //            case LoginFragment.REQUEST_CODE_RESOLVE_ERR:
                 if (fragment != null) {
+                    Log.i(ImpulseStore.TAG, "PlaceOrder.onActivityResult forwarding call to fragment req=" + requestCode);
                     fragment.onActivityResult(requestCode, resultCode, data);
                 }
                 break;
@@ -107,7 +108,7 @@ public class PlaceOrderActivity extends ActionBarActivity {
 //                }
 //                break;
             default:
-                Log.w(ImpulseStore.TAG, "fell through: activity result request code = " + requestCode);
+                Log.w(ImpulseStore.TAG, "fell through: PlaceOrder.onActivityResult forwarding call to super req=" + requestCode);
                 super.onActivityResult(requestCode, resultCode, data);
                 break;
         }
