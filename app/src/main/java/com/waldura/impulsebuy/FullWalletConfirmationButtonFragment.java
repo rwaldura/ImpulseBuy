@@ -44,6 +44,7 @@ import com.google.android.gms.wallet.MaskedWallet;
 import com.google.android.gms.wallet.NotifyTransactionStatusRequest;
 import com.google.android.gms.wallet.Wallet;
 import com.google.android.gms.wallet.WalletConstants;
+
 import com.stripe.model.Token;
 
 import java.lang.ref.WeakReference;
@@ -305,7 +306,7 @@ public class FullWalletConfirmationButtonFragment
         // token must be sent to server for payment processing
         Log.i(ImpulseStore.TAG, "sending token to server for processing: " + jsonToken);
 
-        Log.i(ImpulseStore.TAG, "processing payment " + token.getCurrency() + token.getAmount() + " using token: " + token.getId());
+        Log.i(ImpulseStore.TAG, "processing payment using token: " + token.getId());
         // happens here ...
 
         Log.i(ImpulseStore.TAG, "processed customer payment: " + ImpulseStore.toUSD(totalPrice)
