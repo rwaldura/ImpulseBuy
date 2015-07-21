@@ -30,6 +30,7 @@ public class WalletSupport {
     private static final String CURRENCY_CODE_USD = "USD";
 
     public static final int ENVIRONMENT = WalletConstants.ENVIRONMENT_SANDBOX;
+    public static final int THEME = WalletConstants.THEME_HOLO_LIGHT;
 
     private static final String STRIPE_PUBLIC_KEY = "pk_test_6pRNASCoBOKtIshFeQd4XMUh";
 

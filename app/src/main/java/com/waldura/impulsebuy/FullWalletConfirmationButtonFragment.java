@@ -121,7 +121,7 @@ public class FullWalletConfirmationButtonFragment
                 .addOnConnectionFailedListener(this)
                 .addApi(Wallet.API, new Wallet.WalletOptions.Builder()
                         .setEnvironment(WalletSupport.ENVIRONMENT)
-                        .setTheme(WalletConstants.THEME_HOLO_LIGHT)
+                        .setTheme(WalletSupport.THEME)
                         .build())
                 .build();
 
@@ -305,11 +305,13 @@ public class FullWalletConfirmationButtonFragment
         // token must be sent to server for payment processing
         Log.i(ImpulseStore.TAG, "sending token to server for processing: " + jsonToken);
 
-        int paymentProcessingStatus = pickTransactionStatus();
+        Log.i(ImpulseStore.TAG, "processing payment " + token.getCurrency() + token.getAmount() + " using token: " + token.getId());
+        // happens here ...
 
         Log.i(ImpulseStore.TAG, "processed customer payment: " + ImpulseStore.toUSD(totalPrice)
             + " using wallet " + walletToString(wallet, token));
 
+        int paymentProcessingStatus = pickTransactionStatus();
         fetchTransactionStatus(item, wallet, paymentProcessingStatus);
     }
 
